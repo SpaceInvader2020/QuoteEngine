@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Interfaces\QuoteUseCase;
+use App\Interfaces\QuoteUseCaseInterface;
 use App\Interfaces\RatingFactorInterface;
 use App\Repository\AgeRatingRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Class AgeUseCase
  * @package App\Service
  */
-class AgeUseCase implements QuoteUseCase
+class AgeUseCase implements QuoteUseCaseInterface
 {
     /**
      * @var AgeRatingRepository
@@ -41,5 +41,4 @@ class AgeUseCase implements QuoteUseCase
         $age = $this->requestStack->getCurrentRequest()->get('age');
         return $this->ageRatingRepository->findByAge($age);
     }
-
 }

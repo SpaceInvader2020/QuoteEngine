@@ -28,6 +28,6 @@ class PostcodeRatingRepository extends ServiceEntityRepository
      */
     public function findByPostcodeArea($area): ?PostcodeRating
     {
-        return $this->findOneBy(["postcodeArea"=>$area]);
+        return $this->findOneBy(["postcodeArea" => $area]);
     }
 }

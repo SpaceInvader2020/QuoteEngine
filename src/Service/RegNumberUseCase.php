@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Service;
 
-
-use App\Interfaces\QuoteUseCase;
+use App\Interfaces\QuoteUseCaseInterface;
 use App\Interfaces\RatingFactorInterface;
 use App\Repository\AbiCodeRatingRepository;
 
@@ -12,7 +10,7 @@ use App\Repository\AbiCodeRatingRepository;
  * Class RegNumberUseCase
  * @package App\Service
  */
-class RegNumberUseCase implements QuoteUseCase
+class RegNumberUseCase implements QuoteUseCaseInterface
 {
     /**
      * @var AbiCodeLookup
@@ -22,7 +20,6 @@ class RegNumberUseCase implements QuoteUseCase
      * @var AbiCodeRatingRepository
      */
     private $abiCodeRatingRepository;
-
 
     /**
      * regNumberUseCase constructor.
@@ -40,9 +37,8 @@ class RegNumberUseCase implements QuoteUseCase
     public function handle(): ?RatingFactorInterface
     {
         $response = $this->abiCodeLookup->getResponse();
-        $content = json_decode($response->getContent(),true);
+        $content = json_decode($response->getContent(), true);
         $ratingFactor = $this->abiCodeRatingRepository->findByAbiCode($content["abi_code"]);
         return $ratingFactor;
     }
-
 }

@@ -1,7 +1,8 @@
 <?php
-namespace App\Service;
-use App\Interfaces\QuoteUseCase;
 
+namespace App\Service;
+
+use App\Interfaces\QuoteUseCaseInterface;
 
 /**
  * Class QuoteCalculator
@@ -14,7 +15,7 @@ class QuoteCalculator
     private $basicPremium;
 
     /**
-     * @var QuoteUseCase[]
+     * @var QuoteUseCaseInterface[]
      */
     private $useCases;
 
@@ -35,8 +36,8 @@ class QuoteCalculator
     public function calculate(): float
     {
         $premiumTotal = $this->basicPremium;
-        foreach ($this->useCases as $useCase){
-                $premiumTotal = $premiumTotal * ($useCase->handle()->getRatingFactor() > 0 ? $useCase->handle()->getRatingFactor() : 1);
+        foreach ($this->useCases as $useCase) {
+            $premiumTotal *= ($useCase->handle()->getRatingFactor() > 0 ? $useCase->handle()->getRatingFactor() : 1);
         }
         return $premiumTotal;
     }

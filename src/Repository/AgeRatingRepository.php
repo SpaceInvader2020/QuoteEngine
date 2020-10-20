@@ -23,11 +23,11 @@ class AgeRatingRepository extends ServiceEntityRepository
         parent::__construct($registry, AgeRating::class);
     }
     /**
-     * @param $age
+     * @param integer $age
      * @return AgeRating|null
      */
-    public function findByAge(string $age): ?AgeRating
+    public function findByAge(int $age): ?AgeRating
     {
-        return $this->findOneBy(["age"=>$age]);
+        return $this->findOneBy(["age" => $age]);
     }
 }

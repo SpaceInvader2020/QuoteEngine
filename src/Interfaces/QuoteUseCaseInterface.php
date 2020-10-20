@@ -1,14 +1,12 @@
 <?php
 
-
 namespace App\Interfaces;
 
-
 /**
- * Interface QuoteUseCase
+ * Interface QuoteUseCaseInterface
  * @package App\Interfaces
  */
-interface QuoteUseCase
+interface QuoteUseCaseInterface
 {
     /**
      * @return RatingFactorInterface|null

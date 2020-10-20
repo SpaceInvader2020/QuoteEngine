@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Interfaces\QuoteUseCase;
+use App\Interfaces\QuoteUseCaseInterface;
 use App\Interfaces\RatingFactorInterface;
 use App\Repository\PostcodeRatingRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Class PostcodeUseCase
  * @package App\Service
  */
-class PostcodeUseCase implements QuoteUseCase
+class PostcodeUseCase implements QuoteUseCaseInterface
 {
     /**
      * @var PostcodeRatingRepository
@@ -39,8 +39,7 @@ class PostcodeUseCase implements QuoteUseCase
     public function handle(): ?RatingFactorInterface
     {
         $postcode = $this->requestStack->getCurrentRequest()->get('postcode');
-        $area = substr($postcode,0,3);
+        $area = substr($postcode, 0, 3);
         return $this->postcodeRatingRepository->findByPostcodeArea($area);
     }
-
 }

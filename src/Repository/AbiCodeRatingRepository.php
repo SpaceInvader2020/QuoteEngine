@@ -29,6 +29,6 @@ class AbiCodeRatingRepository extends ServiceEntityRepository
      */
     public function findByAbiCode($abiCode): ?AbiCodeRating
     {
-        return $this->findOneBy(["abiCode"=>$abiCode]);
+        return $this->findOneBy(["abiCode" => $abiCode]);
     }
 }

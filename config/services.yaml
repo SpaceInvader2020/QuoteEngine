@@ -94,6 +94,5 @@ services:
         class: App\Service\QuoteCalculator
         arguments:
             $basicPremium:  '%basic_premium%'
-            $useCases:      ['@app.age_use_case']
-#'@app.postcode_use_case','@app.reg_number_use_case',
+            $useCases:      ['@app.age_use_case','@app.postcode_use_case','@app.reg_number_use_case']
     App\Service\QuoteCalculator: '@app.quote_calculator'

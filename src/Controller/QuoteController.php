@@ -24,9 +24,8 @@ class QuoteController extends AbstractController
      */
     public function index(Request $request, QuoteCalculator $quoteCalculator)
     {
-        try{
-
-            if (!$request){
+        try {
+            if (!$request) {
                 throw new \Exception();
             }
 
@@ -34,14 +33,12 @@ class QuoteController extends AbstractController
                 'quote' => $quoteCalculator->calculate()
             ];
 
-            return new JsonResponse($data,200);
-
-        }catch (\Exception $e){
+            return new JsonResponse($data, 200);
+        } catch (\Exception $e) {
             $data = [
                 'errors' => "Data is not valid",
             ];
-            return new JsonResponse($data,422);
+            return new JsonResponse($data, 422);
         }
-
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use GuzzleHttp\ClientInterface;
@@ -36,10 +37,10 @@ class AbiCodeLookup
      */
     public static function getResponse(): JsonResponse
     {
-//        $regNo = $this->requestStack->getCurrentRequest()->get('regNo');
-        // handle request to third party api to get response t
-        // hat would include API code
-        $response = new JsonResponse(["abi_code"=>"22529902"],200);
+        // we could implement request to third party api here
+        // $regNo = $this->requestStack->getCurrentRequest()->get('regNo');
+        // handle request to third party api to get abi code and return response
+        $response = new JsonResponse(["abi_code" => "22529902"], 200);
         return $response;
     }
 }
