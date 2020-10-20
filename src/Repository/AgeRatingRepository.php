@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\AbiCodeRating;
 use App\Entity\AgeRating;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,7 +26,7 @@ class AgeRatingRepository extends ServiceEntityRepository
      * @param $age
      * @return AgeRating|null
      */
-    public function findByAge($age): ?AgeRating
+    public function findByAge(string $age): ?AgeRating
     {
         return $this->findOneBy(["age"=>$age]);
     }

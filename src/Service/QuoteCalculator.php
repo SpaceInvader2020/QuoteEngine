@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
-use App\Entity\RatingFactorInterface;
+use App\Interfaces\QuoteUseCase;
+
 
 /**
  * Class QuoteCalculator
@@ -8,16 +9,35 @@ use App\Entity\RatingFactorInterface;
 class QuoteCalculator
 {
     /**
-     * @param array $ratingFactors
-     * @return float
+     * @var float
      */
-    public static function calculate(array $ratingFactors): float
+    private $basicPremium;
+
+    /**
+     * @var QuoteUseCase[]
+     */
+    private $useCases;
+
+    /**
+     * QuoteCalculator constructor.
+     * @param float $basicPremium
+     * @param array $useCases
+     */
+    public function __construct(float $basicPremium, array $useCases)
     {
-        $premiumTotal = 500;
-        foreach ($ratingFactors as $ratingFactor){
-            $premiumTotal = $premiumTotal * ($ratingFactor instanceof RatingFactorInterface ? $ratingFactor->getRatingFactor() : 1);
-        }
-        return $premiumTotal ;
+        $this->useCases = $useCases;
+        $this->basicPremium = $basicPremium;
     }
 
+    /**
+     * @return float
+     */
+    public function calculate(): float
+    {
+        $premiumTotal = $this->basicPremium;
+        foreach ($this->useCases as $useCase){
+                $premiumTotal = $premiumTotal * ($useCase->handle()->getRatingFactor() > 0 ? $useCase->handle()->getRatingFactor() : 1);
+        }
+        return $premiumTotal;
+    }
 }

@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-#    age: App\AgeRating
+    basic_premium: 500
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -29,9 +30,70 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-#    app.age_rating
-#        class: App\Repository\AgeRatingRepository
-#
-#    app.quote_calculator:
-#        class: App\Service\QuoteCalculator
-#        argumnets: ['%%']
+
+
+    # age use case
+    app.age_rating_repo:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - App\Entity\AgeRating
+
+    app.age_use_case:
+        class: App\Service\AgeUseCase
+        arguments:
+            - '@app.age_rating_repo'
+            - '@request_stack'
+
+    App\Service\AgeUseCase: '@app.age_use_case'
+
+    # postcode use case
+    app.postcode_rating_repo:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - App\Entity\PostcodeRating
+
+    app.postcode_use_case:
+        class: App\Service\PostcodeUseCase
+        arguments:
+            - '@app.postcode_rating_repo'
+            - '@request_stack'
+
+    App\Service\PostcodeUseCase: '@app.postcode_use_case'
+
+
+    # reg number use case
+    app.abi_code_rating_repo:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - App\Entity\AbiCodeRating
+
+    guzzle_client:
+        class: GuzzleHttp\Client
+
+    app.abi_lookup_service:
+        class: App\Service\AbiCodeLookup
+        arguments:
+            - "@guzzle_client"
+            - '@request_stack'
+    App\Service\AbiCodeLookup: '@app.abi_lookup_service'
+
+    app.reg_number_use_case:
+        class: App\Service\RegNumberUseCase
+        arguments:
+            - '@app.abi_lookup_service'
+            - '@app.abi_code_rating_repo'
+
+    App\Service\RegNumberUseCase: '@app.reg_number_use_case'
+
+    # quote calculator
+    # any new use case can be added to quote calculator
+    app.quote_calculator:
+        class: App\Service\QuoteCalculator
+        arguments:
+            $basicPremium:  '%basic_premium%'
+            $useCases:      ['@app.age_use_case']
+#'@app.postcode_use_case','@app.reg_number_use_case',
+    App\Service\QuoteCalculator: '@app.quote_calculator'

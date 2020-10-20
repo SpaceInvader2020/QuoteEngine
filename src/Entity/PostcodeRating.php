@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\RatingFactorInterface;
 use App\Repository\PostcodeRatingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
