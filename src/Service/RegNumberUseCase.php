@@ -37,6 +37,9 @@ class RegNumberUseCase implements QuoteUseCaseInterface
     public function handle(): ?RatingFactorInterface
     {
         $response = $this->abiCodeLookup->getResponse();
+        if(!isset($response)){
+            return null;
+        }
         $content = json_decode($response->getContent(), true);
         $ratingFactor = $this->abiCodeRatingRepository->findByAbiCode($content["abi_code"]);
         return $ratingFactor;

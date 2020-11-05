@@ -40,6 +40,6 @@ class PostcodeUseCase implements QuoteUseCaseInterface
     {
         $postcode = $this->requestStack->getCurrentRequest()->get('postcode');
         $area = substr($postcode, 0, 3);
-        return $this->postcodeRatingRepository->findByPostcodeArea($area);
+        return isset($area) ? $this->postcodeRatingRepository->findByPostcodeArea($area) : null;
     }
 }

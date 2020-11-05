@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Interfaces\QuoteUseCaseInterface;
+use App\Interfaces\RatingFactorInterface;
 
 /**
  * Class QuoteCalculator
@@ -37,7 +38,9 @@ class QuoteCalculator
     {
         $premiumTotal = $this->basicPremium;
         foreach ($this->useCases as $useCase) {
-            $premiumTotal *= ($useCase->handle()->getRatingFactor() > 0 ? $useCase->handle()->getRatingFactor() : 1);
+            if($useCase->handle()) {
+                $premiumTotal *= ($useCase->handle()->getRatingFactor() > 0 ? $useCase->handle()->getRatingFactor() : 1);
+            }
         }
         return $premiumTotal;
     }

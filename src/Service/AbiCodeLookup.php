@@ -6,6 +6,7 @@ use GuzzleHttp\ClientInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+
 /**
  * Class AbiCodeLookup
  * @package App\Service
@@ -30,17 +31,17 @@ class AbiCodeLookup
     {
         $this->client = $client;
         $this->requestStack = $requestStack;
+
     }
 
     /**
-     * @return JsonResponse
+     * @return JsonResponse|null
      */
-    public static function getResponse(): JsonResponse
+    public function getResponse(): ?JsonResponse
     {
-        // we could implement request to third party api here
-        // $regNo = $this->requestStack->getCurrentRequest()->get('regNo');
+        $regNo = $this->requestStack->getCurrentRequest()->get('regNo');
         // handle request to third party api to get abi code and return response
         $response = new JsonResponse(["abi_code" => "22529902"], 200);
-        return $response;
+        return isset($regNo) ? $response : null;
     }
 }

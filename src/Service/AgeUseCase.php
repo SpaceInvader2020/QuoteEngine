@@ -39,6 +39,6 @@ class AgeUseCase implements QuoteUseCaseInterface
     public function handle(): ?RatingFactorInterface
     {
         $age = $this->requestStack->getCurrentRequest()->get('age');
-        return $this->ageRatingRepository->findByAge($age);
+        return isset($age) ? $this->ageRatingRepository->findByAge($age) : null;
     }
 }

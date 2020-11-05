@@ -16,7 +16,7 @@ class QuoteController extends AbstractController
 {
 
     /**
-     * @Route("/", name="quote")
+     * @Route("/", name="quote", methods={"POST"})
      *
      * @param Request $request
      * @param QuoteCalculator $quoteCalculator
