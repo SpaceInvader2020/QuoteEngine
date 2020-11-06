@@ -39,7 +39,8 @@ class AbiCodeLookup
      */
     public function getResponse(): ?JsonResponse
     {
-        $regNo = $this->requestStack->getCurrentRequest()->get('regNo');
+
+        $regNo = $this->requestStack->getCurrentRequest() ? $this->requestStack->getCurrentRequest()->get('regNo') : null;
         // handle request to third party api to get abi code and return response
         $response = new JsonResponse(["abi_code" => "22529902"], 200);
         return isset($regNo) ? $response : null;

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Service\QuoteCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,17 +17,12 @@ class QuoteController extends AbstractController
     /**
      * @Route("/", name="quote", methods={"POST"})
      *
-     * @param Request $request
      * @param QuoteCalculator $quoteCalculator
      * @return JsonResponse
      */
-    public function index(Request $request, QuoteCalculator $quoteCalculator)
+    public function index(QuoteCalculator $quoteCalculator)
     {
         try {
-            if (!$request) {
-                throw new \Exception();
-            }
-
             $data = [
                 'quote' => $quoteCalculator->calculate()
             ];

@@ -41,7 +41,6 @@ class RegNumberUseCase implements QuoteUseCaseInterface
             return null;
         }
         $content = json_decode($response->getContent(), true);
-        $ratingFactor = $this->abiCodeRatingRepository->findByAbiCode($content["abi_code"]);
-        return $ratingFactor;
+        return $this->abiCodeRatingRepository->findByAbiCode($content["abi_code"]);
     }
 }

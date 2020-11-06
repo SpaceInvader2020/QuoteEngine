@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Interfaces\QuoteUseCaseInterface;
-use App\Interfaces\RatingFactorInterface;
 
 /**
  * Class QuoteCalculator
