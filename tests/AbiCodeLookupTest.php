@@ -38,7 +38,8 @@ class AbiCodeLookupTest extends TestCase
 
     public function testGetResponseWhenRegNoDefined()
     {
-        $input = ["regNo"=>"LB15WSJ"];
+
+        $input = [ "regNo"=>"LB15WSJ" ];
         $output = new JsonResponse(["abi_code" => "22529902"], 200);
 
         $request = new Request($input, [], [], [], [], [], []);
@@ -46,6 +47,7 @@ class AbiCodeLookupTest extends TestCase
 
         $response = $this->abiCodeLookup->getResponse();
         $this->assertEquals($output, $response);
+
     }
 
 }
